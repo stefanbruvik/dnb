@@ -1,0 +1,10 @@
+.root {
+  padding: 8px;
+}
+
+.floors {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  margin: 8px;
+}
