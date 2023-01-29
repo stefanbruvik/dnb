@@ -1,19 +1,42 @@
+@use "../../styles/shadows";
+@use "../../styles/spacing";
+
 .root {
-  padding: 8px;
+  padding: spacing.$default;
+  background-color: #f5f5f5;
+  margin-bottom: spacing.$double;
+  @include shadows.card;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 4px;
+  align-items: center;
   user-select: none;
+  margin-bottom: spacing.$default;
+}
+
+.buttons {
+  display: flex;
+  button {
+    margin: 0 spacing.$default 0 0;
+  }
+}
+
+.wrap {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
 
 .spots {
-  background-color: #dce1e8;
+  // background-color: #ebebeb;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 4px;
-  border: 1px solid #000;
-  padding: 8px;
+  border-radius: spacing.$half;
+  padding: spacing.$default;
+  width: 75%;
+  margin: spacing.$default;
+  min-height: 100px;
+  // @include shadows.card;
 }

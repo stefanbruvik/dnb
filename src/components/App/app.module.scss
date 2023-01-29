@@ -1,3 +1,5 @@
+@use "../../styles/spacing";
+
 .root {
-  padding: 8px;
+  padding: spacing.$default;
 }

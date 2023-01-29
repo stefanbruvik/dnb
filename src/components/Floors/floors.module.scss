@@ -1,10 +1,21 @@
+@use "../../styles/spacing";
+
 .root {
-  padding: 8px;
+  padding: spacing.$default;
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  button {
+    margin: 0 0 0 spacing.$default;
+  }
 }
 
 .floors {
   display: flex;
   flex-direction: column-reverse;
   flex-wrap: wrap;
-  margin: 8px;
+  margin: spacing.$default;
 }

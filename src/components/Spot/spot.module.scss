@@ -1,22 +1,35 @@
 @use "sass:color";
+@use "../../styles/spacing";
 
 $bgcolor: #9750dd;
 $transition: all 250ms ease;
 
 .root {
   display: flex;
+  position: relative;
+  max-height: 100px;
+  .clock {
+    position: absolute;
+    right: calc(50% - 22px);
+    top: 10px;
+    color: #17c964;
+  }
+}
+
+.card {
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
+  border-radius: spacing.$half;
   border: 1px solid #000;
-  padding: 8px;
+  padding: spacing.$default;
   width: 30px;
   height: 50px;
-  margin: 8px;
+  margin: spacing.$default;
   cursor: pointer;
   background-color: $bgcolor;
-  color: rgba($color: #fff, $alpha: 0.5);
+  color: #fff;
   transition: $transition;
   user-select: none;
 
@@ -57,6 +70,7 @@ $transition: all 250ms ease;
 
 .occupied {
   color: #fff;
+  opacity: 0.5;
 }
 
 .spot {

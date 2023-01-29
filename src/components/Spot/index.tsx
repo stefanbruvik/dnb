@@ -1,9 +1,10 @@
-import { FaCar, FaChargingStation, FaMotorcycle, FaWheelchair } from "react-icons/fa";
+import { FaCar, FaChargingStation, FaClock, FaMotorcycle, FaWheelchair } from "react-icons/fa";
+import { getFloorAndSpot, getNextSpotType } from "./utils";
 
 import type { ParkingSpot } from "types";
 import { SpotType } from "enums";
-import { nth } from "lodash";
 import styles from "./spot.module.scss";
+import { useCallback } from "react";
 import useEditMode from "hooks/useEditMode";
 import useFloors from "hooks/useFloors";
 
@@ -19,42 +20,11 @@ const Spot = (props: SpotProps) => {
   const floors = useFloors();
   const editMode = useEditMode();
 
-  const getFloorAndSpot = (floorNumber: number, spotNumber: number) => {
-    const currentFloor = nth(floors, floorNumber);
-    if (currentFloor) {
-      const currentSpot = nth(currentFloor.spots, spotNumber);
-      if (currentSpot) {
-        return { currentFloor, currentSpot };
-      }
-    }
-    return {};
-  };
-
-  const nextType = (spot: ParkingSpot) => {
-    if (spot.type === SpotType.Compact) {
-      return SpotType.Large;
-    }
-
-    if (spot.type === SpotType.Large) {
-      return SpotType.Handicapped;
-    }
-
-    if (spot.type === SpotType.Handicapped) {
-      return SpotType.Motorcycle;
-    }
-
-    if (spot.type === SpotType.Motorcycle) {
-      return SpotType.Electrical;
-    }
-
-    return SpotType.Compact;
-  };
-
   const toggleType = (floorNumber: number, spotNumber: number) => {
-    const { currentFloor, currentSpot } = getFloorAndSpot(floorNumber, spotNumber);
+    const { currentFloor, currentSpot } = getFloorAndSpot(floors, floorNumber, spotNumber);
 
     if (currentFloor && currentSpot) {
-      const newSpot = { ...currentSpot, type: nextType(currentSpot) };
+      const newSpot = { ...currentSpot, type: getNextSpotType(currentSpot) };
       const newSpots = currentFloor.spots.map((spot, index) => (index === spotNumber ? newSpot : spot));
       const newFloor = { ...currentFloor, spots: newSpots };
       const newFloors = floors?.map((floor, index) => (index === floorNumber ? newFloor : floor));
@@ -63,29 +33,40 @@ const Spot = (props: SpotProps) => {
     }
   };
 
-  const toggleParking = (floorNumber: number, spotNumber: number) => {
-    const { currentFloor, currentSpot } = getFloorAndSpot(floorNumber, spotNumber);
-    if (currentFloor && currentSpot) {
-      console.log(currentFloor, currentSpot);
-    }
-  };
+  const toggleParking = useCallback(
+    (floorNumber: number, spotNumber: number) => {
+      const { currentFloor, currentSpot } = getFloorAndSpot(floors, floorNumber, spotNumber);
+
+      if (currentFloor && currentSpot) {
+        const newSpot = { ...currentSpot, occupied: !currentSpot.occupied };
+        const newSpots = currentFloor.spots.map((spot, index) => (index === spotNumber ? newSpot : spot));
+        const newFloor = { ...currentFloor, spots: newSpots };
+        const newFloors = floors?.map((floor, index) => (index === floorNumber ? newFloor : floor));
+
+        setFloors(newFloors);
+      }
+    },
+    [floors, setFloors]
+  );
+
+  const iconSize = 24;
 
   return (
-    <>
+    <div className={styles.root}>
+      {spot.occupied && <FaClock size={44} className={styles.clock} />}
       <div
-        className={`${styles.root} ${styles[spot.type]}`}
+        className={`${styles.card} ${styles[spot.type]} ${spot.occupied ? styles.occupied : ""}`}
         onClick={e => (editMode ? toggleType(floorNumber, spotNumber) : toggleParking(floorNumber, spotNumber))}
       >
         <div className={styles.spot}>
-          <span>{spotNumber}</span>
-          {spot.type === SpotType.Motorcycle && <FaMotorcycle />}
-          {spot.type === SpotType.Compact && <FaCar />}
-          {spot.type === SpotType.Large && <FaCar />}
-          {spot.type === SpotType.Handicapped && <FaWheelchair />}
-          {spot.type === SpotType.Electrical && <FaChargingStation />}
+          {spot.type === SpotType.Motorcycle && <FaMotorcycle size={iconSize} />}
+          {spot.type === SpotType.Compact && <FaCar size={iconSize} />}
+          {spot.type === SpotType.Large && <FaCar size={iconSize} />}
+          {spot.type === SpotType.Handicapped && <FaWheelchair size={iconSize} />}
+          {spot.type === SpotType.Electrical && <FaChargingStation size={iconSize} />}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
