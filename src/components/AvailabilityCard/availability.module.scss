@@ -16,7 +16,10 @@
   transition: transitions.$default;
   border: 2px solid transparent;
   &.full {
-    border: 2px solid red;
+    border: 2px solid colors.$red;
+  }
+  .full {
+    color: colors.$red;
   }
 
   .total {

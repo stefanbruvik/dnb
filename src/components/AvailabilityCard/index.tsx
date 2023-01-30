@@ -21,7 +21,8 @@ const AvailabilityCard = (props: AvailabilityCardProps) => {
 
   return (
     <div className={`${styles.root} ${totalAvailable === 0 && !editMode ? styles.full : ""}`}>
-      <h5>Availability</h5>
+      {totalAvailable > 0 && <h5>Availability</h5>}
+      {totalAvailable === 0 && !editMode && <h5 className={styles.full}>No available spots</h5>}
       <div className={styles.total}>
         <div>{totalAvailable}</div>
         <div>of {spots.length}</div>
