@@ -6,7 +6,12 @@ type TicketContextType = {
   setTickets: React.Dispatch<React.SetStateAction<Ticket[]>>;
 };
 
-export const TicketsContext = React.createContext<TicketContextType>({ tickets: [], setTickets: () => {} });
+export const TicketsContext = React.createContext<TicketContextType>({
+  tickets: [],
+  setTickets: () => {
+    return;
+  }
+});
 const useTickets = () => React.useContext(TicketsContext);
 
 export default useTickets;

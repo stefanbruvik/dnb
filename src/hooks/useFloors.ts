@@ -6,7 +6,12 @@ type ParkingFloorsContextType = {
   setFloors: React.Dispatch<React.SetStateAction<ParkingFloor[]>>;
 };
 
-export const FloorsContext = React.createContext<ParkingFloorsContextType>({ floors: [], setFloors: () => {} });
+export const FloorsContext = React.createContext<ParkingFloorsContextType>({
+  floors: [],
+  setFloors: () => {
+    return;
+  }
+});
 const useFloors = () => React.useContext(FloorsContext);
 
 export default useFloors;
