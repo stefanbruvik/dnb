@@ -8,6 +8,7 @@ import useEditMode from "hooks/useEditMode";
 
 type AvailabilityCardProps = {
   spots: ParkingSpot[];
+  foo: bar;
 };
 
 const AvailabilityCard = (props: AvailabilityCardProps) => {
