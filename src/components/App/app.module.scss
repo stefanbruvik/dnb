@@ -29,6 +29,15 @@
   flex-grow: 1;
   transition: transitions.$default;
 
+  > div {
+    width: 100%;
+    max-width: breakpoints.$small;
+    @media (max-width: breakpoints.$small) {
+      width: initial;
+      max-width: none;
+    }
+  }
+
   &.editmode {
     opacity: 0.3;
     @media (max-width: breakpoints.$small) {

@@ -4,6 +4,7 @@ import type { ParkingSpot } from "types";
 import { SpotType } from "enums";
 import { getIcon } from "./utils";
 import styles from "./availability.module.scss";
+import useEditMode from "hooks/useEditMode";
 
 type AvailabilityCardProps = {
   spots: ParkingSpot[];
@@ -11,12 +12,15 @@ type AvailabilityCardProps = {
 
 const AvailabilityCard = (props: AvailabilityCardProps) => {
   const { spots } = props;
+
+  const editMode = useEditMode();
+
   const spotsByType = groupBy(spots, "type");
   const typePair = sortBy(toPairs(spotsByType), o => o[0]) as [SpotType, ParkingSpot[]][];
   const totalAvailable = spots.reduce((acc, spot) => acc + (spot.occupied ? 0 : 1), 0);
 
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${totalAvailable === 0 && !editMode ? styles.full : ""}`}>
       <h5>Availability</h5>
       <div className={styles.total}>
         <div>{totalAvailable}</div>

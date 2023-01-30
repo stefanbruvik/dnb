@@ -11,6 +11,35 @@
   user-select: none;
   @include shadows.card;
 
+  .tickets {
+    .ticket {
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+
+      &:first-of-type {
+        font-weight: 700;
+      }
+
+      div {
+        padding: 2px;
+        &:first-of-type {
+          width: 20%;
+        }
+        &:nth-of-type(2),
+        &:nth-of-type(3) {
+          width: 40%;
+        }
+      }
+    }
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    margin-bottom: spacing.$default;
+  }
+
   .total {
     display: flex;
     flex-direction: row;

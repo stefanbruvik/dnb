@@ -58,8 +58,13 @@
       background-color: color.adjust(colors.$purple, $lightness: 20%);
     }
   }
+
   &.compact {
     width: 30px;
+  }
+
+  &.compact {
+    width: 20px;
   }
 
   &.large {

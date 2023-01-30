@@ -2,6 +2,7 @@
 @use "../../styles/spacing";
 @use "../../styles/colors";
 @use "../../styles/breakpoints";
+@use "../../styles/transitions";
 
 .root {
   background-color: #fff;
@@ -12,6 +13,11 @@
   white-space: nowrap;
   user-select: none;
   @include shadows.card;
+  transition: transitions.$default;
+  border: 2px solid transparent;
+  &.full {
+    border: 2px solid red;
+  }
 
   .total {
     display: flex;

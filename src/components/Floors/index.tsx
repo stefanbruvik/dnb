@@ -2,22 +2,15 @@ import { FaPlus, FaTrashAlt } from "react-icons/fa";
 
 import Button from "components/Button";
 import Floor from "components/Floor";
-import type { ParkingFloor } from "types";
 import { dropRight } from "lodash";
 import styles from "./floors.module.scss";
 import { useCallback } from "react";
 import useEditMode from "hooks/useEditMode";
 import useFloors from "hooks/useFloors";
 
-type FloorsProps = {
-  setFloors: React.Dispatch<React.SetStateAction<ParkingFloor[]>>;
-};
-
-const Floors = (props: FloorsProps) => {
-  const { setFloors } = props;
-
+const Floors = () => {
   const editMode = useEditMode();
-  const floors = useFloors();
+  const { floors, setFloors } = useFloors();
 
   const addFloor = useCallback(() => {
     setFloors([...(floors ?? []), { spots: [] }]);
@@ -41,7 +34,7 @@ const Floors = (props: FloorsProps) => {
       </div>
       <div className={styles.floors}>
         {floors?.map((floor, index) => (
-          <Floor key={index} floorNumber={index} spots={floor.spots} setFloors={setFloors} />
+          <Floor key={index} floorNumber={index} spots={floor.spots} />
         ))}
       </div>
     </div>

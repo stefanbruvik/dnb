@@ -2,7 +2,7 @@ import "normalize.css";
 import "styles/globals.scss";
 
 import { FaRegArrowAltCircleLeft, FaRegEdit } from "react-icons/fa";
-import { ParkingFloor, Ticket } from "types";
+import type { ParkingFloor, Ticket } from "types";
 import { useCallback, useMemo, useState } from "react";
 
 import AvailabilityCard from "components/AvailabilityCard";
@@ -40,7 +40,7 @@ function App() {
       </div>
 
       <EditModeContext.Provider value={editMode}>
-        <FloorsContext.Provider value={floors}>
+        <FloorsContext.Provider value={{ floors, setFloors }}>
           <TicketsContext.Provider value={{ tickets, setTickets }}>
             <div className={styles.cardsRow}>
               <div className={`${styles.cards} ${editMode ? styles.editmode : ""}`}>
@@ -50,7 +50,7 @@ function App() {
               {editMode && <Message title="Instructions" text={messages.editmode} />}
               {!editMode && <Message title="Instructions" text={messages.instructions} />}
             </div>
-            <Floors {...{ setFloors }} />
+            <Floors />
           </TicketsContext.Provider>
         </FloorsContext.Provider>
       </EditModeContext.Provider>

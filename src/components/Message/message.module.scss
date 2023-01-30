@@ -6,12 +6,13 @@
 .root {
   color: colors.$blue;
   margin: spacing.$default;
-  padding: spacing.$default;
+  padding: spacing.$double;
   width: 20rem;
   background-color: color.adjust(colors.$blue, $lightness: 50%);
   border-width: 1px;
   border-style: solid;
   border-color: colors.$blue;
+  border-radius: 20px;
 
   @media (max-width: breakpoints.$small) {
     width: initial;

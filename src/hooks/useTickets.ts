@@ -3,7 +3,7 @@ import type { Ticket } from "types";
 
 type TicketContextType = {
   tickets: Ticket[];
-  setTickets: any;
+  setTickets: React.Dispatch<React.SetStateAction<Ticket[]>>;
 };
 
 export const TicketsContext = React.createContext<TicketContextType>({ tickets: [], setTickets: () => {} });

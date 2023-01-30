@@ -1,9 +1,9 @@
 import { FaPlus, FaTrashAlt } from "react-icons/fa";
-import type { ParkingFloor, ParkingSpot } from "types";
 import { dropRight, nth } from "lodash";
 
 import AvailabilityCard from "components/AvailabilityCard";
 import Button from "components/Button";
+import type { ParkingSpot } from "types";
 import Spot from "components/Spot";
 import { SpotType } from "enums";
 import styles from "./floor.module.scss";
@@ -15,14 +15,13 @@ import useTickets from "hooks/useTickets";
 type FloorProps = {
   floorNumber: number;
   spots: ParkingSpot[];
-  setFloors: React.Dispatch<React.SetStateAction<ParkingFloor[]>>;
 };
 
 const Floor = (props: FloorProps) => {
-  const { floorNumber, spots, setFloors } = props;
+  const { floorNumber, spots } = props;
 
   const editMode = useEditMode();
-  const floors = useFloors();
+  const { floors, setFloors } = useFloors();
   const tickets = useTickets();
 
   const addSpot = useCallback(
@@ -31,7 +30,7 @@ const Floor = (props: FloorProps) => {
       if (currentFloor) {
         const newFloor = {
           ...currentFloor,
-          spots: [...currentFloor.spots, { type: SpotType.Compact, occupied: false }]
+          spots: [...currentFloor.spots, { type: SpotType.Normal, occupied: false }]
         };
         const newFloors = floors?.map((floor, index) => (index === floorNumber ? newFloor : floor));
 
@@ -82,7 +81,6 @@ const Floor = (props: FloorProps) => {
               spot={spot}
               floorNumber={floorNumber}
               spotNumber={spotNumber}
-              setFloors={setFloors}
             />
           ))}
         </div>

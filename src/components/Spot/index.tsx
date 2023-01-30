@@ -1,5 +1,5 @@
 import { FaCar, FaChargingStation, FaClock, FaMotorcycle, FaWheelchair } from "react-icons/fa";
-import type { ParkingFloor, ParkingSpot, Ticket } from "types";
+import type { ParkingSpot, Ticket } from "types";
 import { getFloorAndSpot, getNextSpotType } from "./utils";
 
 import { DateTime } from "luxon";
@@ -15,12 +15,11 @@ type SpotProps = {
   floorNumber: number;
   spotNumber: number;
   spot: ParkingSpot;
-  setFloors: React.Dispatch<React.SetStateAction<ParkingFloor[]>>;
 };
 
 const Spot = (props: SpotProps) => {
-  const { spot, setFloors, floorNumber, spotNumber } = props;
-  const floors = useFloors();
+  const { spot, floorNumber, spotNumber } = props;
+  const { floors, setFloors } = useFloors();
   const editMode = useEditMode();
   const { tickets, setTickets } = useTickets();
 
@@ -88,6 +87,7 @@ const Spot = (props: SpotProps) => {
           {(!spot.occupied || editMode) && (
             <>
               {spot.type === SpotType.Motorcycle && <FaMotorcycle size={iconSize} />}
+              {spot.type === SpotType.Normal && <FaCar size={iconSize} />}
               {spot.type === SpotType.Compact && <FaCar size={iconSize} />}
               {spot.type === SpotType.Large && <FaCar size={iconSize} />}
               {spot.type === SpotType.Handicapped && <FaWheelchair size={iconSize} />}

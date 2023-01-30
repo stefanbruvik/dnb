@@ -4,6 +4,10 @@ import { SpotType } from "enums";
 import { nth } from "lodash";
 
 export const getNextSpotType = (spot: ParkingSpot) => {
+  if (spot.type === SpotType.Normal) {
+    return SpotType.Compact;
+  }
+
   if (spot.type === SpotType.Compact) {
     return SpotType.Large;
   }
@@ -20,7 +24,7 @@ export const getNextSpotType = (spot: ParkingSpot) => {
     return SpotType.Electrical;
   }
 
-  return SpotType.Compact;
+  return SpotType.Normal;
 };
 
 export const getFloorAndSpot = (floors: ParkingFloor[], floorNumber: number, spotNumber: number) => {
