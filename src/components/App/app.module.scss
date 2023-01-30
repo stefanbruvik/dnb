@@ -1,5 +1,42 @@
 @use "../../styles/spacing";
+@use "../../styles/colors";
+@use "../../styles/shadows";
+@use "../../styles/transitions";
+@use "../../styles/breakpoints";
 
 .root {
   padding: spacing.$default;
+}
+
+.appbar {
+  background-color: colors.$lightblue;
+  padding: spacing.$default;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardsRow {
+  display: flex;
+  @media (max-width: breakpoints.$small) {
+    flex-direction: column;
+  }
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  transition: transitions.$default;
+
+  &.editmode {
+    opacity: 0.3;
+    @media (max-width: breakpoints.$small) {
+      display: none;
+    }
+  }
+
+  @media (max-width: breakpoints.$small) {
+    flex-direction: column;
+  }
 }

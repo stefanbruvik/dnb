@@ -1,0 +1,36 @@
+@use "sass:color";
+@use "../../styles/spacing";
+@use "../../styles/colors";
+@use "../../styles/breakpoints";
+
+.root {
+  color: colors.$blue;
+  margin: spacing.$default;
+  padding: spacing.$default;
+  width: 20rem;
+  background-color: color.adjust(colors.$blue, $lightness: 50%);
+  border-width: 1px;
+  border-style: solid;
+  border-color: colors.$blue;
+
+  @media (max-width: breakpoints.$small) {
+    width: initial;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: spacing.$default;
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: spacing.$half;
+    }
+  }
+
+  .text {
+    color: black;
+    font-size: 1.4rem;
+    white-space: pre-line;
+  }
+}

@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { SpotType } from "./enums";
 
 export type ParkingSpot = {
@@ -7,4 +8,11 @@ export type ParkingSpot = {
 
 export type ParkingFloor = {
   spots: ParkingSpot[];
+};
+
+export type Ticket = {
+  floorNumber: number;
+  spotNumber: number;
+  startTime: DateTime;
+  endTime?: DateTime;
 };

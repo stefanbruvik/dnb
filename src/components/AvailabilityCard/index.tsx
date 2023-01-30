@@ -23,9 +23,9 @@ const AvailabilityCard = (props: AvailabilityCardProps) => {
         <div>of {spots.length}</div>
       </div>
 
-      {typePair.map(pair => {
+      {typePair.map((pair, index) => {
         return (
-          <div className={styles.row}>
+          <div key={index} className={styles.row}>
             <div className={styles.iconAndType}>
               {getIcon(pair[0])} {upperFirst(pair[0])}:
             </div>

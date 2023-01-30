@@ -1,20 +1,21 @@
 import { FaPlus, FaTrashAlt } from "react-icons/fa";
+import type { ParkingFloor, ParkingSpot } from "types";
 import { dropRight, nth } from "lodash";
 
 import AvailabilityCard from "components/AvailabilityCard";
 import Button from "components/Button";
-import type { ParkingSpot } from "types";
 import Spot from "components/Spot";
 import { SpotType } from "enums";
 import styles from "./floor.module.scss";
 import { useCallback } from "react";
 import useEditMode from "hooks/useEditMode";
 import useFloors from "hooks/useFloors";
+import useTickets from "hooks/useTickets";
 
 type FloorProps = {
   floorNumber: number;
   spots: ParkingSpot[];
-  setFloors: any;
+  setFloors: React.Dispatch<React.SetStateAction<ParkingFloor[]>>;
 };
 
 const Floor = (props: FloorProps) => {
@@ -22,6 +23,7 @@ const Floor = (props: FloorProps) => {
 
   const editMode = useEditMode();
   const floors = useFloors();
+  const tickets = useTickets();
 
   const addSpot = useCallback(
     (floorNumber: number) => {
@@ -53,25 +55,25 @@ const Floor = (props: FloorProps) => {
   );
 
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${editMode ? styles.editmode : ""}`}>
       <div className={styles.header}>
         <h4>Floor {floorNumber}</h4>
-        {editMode && (
-          <div className={styles.buttons}>
-            <Button onClick={e => addSpot(floorNumber)} icon={<FaPlus />} text="Add spot" />
-            <Button
-              variant="secondary"
-              disabled={spots.length === 0}
-              onClick={e => removeSpot(floorNumber)}
-              icon={<FaTrashAlt />}
-              text="Remove spot"
-            />
-          </div>
-        )}
+        <div className={`${styles.buttons} ${editMode ? styles.editmode : ""}`}>
+          <Button onClick={e => addSpot(floorNumber)} icon={<FaPlus />} text="Add spot" />
+          <Button
+            variant="secondary"
+            disabled={spots.length === 0}
+            onClick={e => removeSpot(floorNumber)}
+            icon={<FaTrashAlt />}
+            text="Remove spot"
+          />
+        </div>
       </div>
 
       <div className={styles.wrap}>
-        <AvailabilityCard spots={spots} />
+        <div className={`${styles.card} ${editMode ? styles.editmode : ""}`}>
+          <AvailabilityCard spots={spots} />
+        </div>
 
         <div className={styles.spots}>
           {spots.map((spot, spotNumber) => (

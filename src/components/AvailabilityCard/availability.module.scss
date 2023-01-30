@@ -1,5 +1,7 @@
 @use "../../styles/shadows";
 @use "../../styles/spacing";
+@use "../../styles/colors";
+@use "../../styles/breakpoints";
 
 .root {
   background-color: #fff;
@@ -7,7 +9,6 @@
   padding: spacing.$default;
   margin: spacing.$default;
   font-weight: 500;
-  width: 25%;
   white-space: nowrap;
   user-select: none;
   @include shadows.card;
@@ -41,7 +42,8 @@
       flex-direction: row;
       align-items: center;
       svg {
-        margin-right: spacing.$half;
+        margin-right: spacing.$default;
+        color: colors.$darkblue;
       }
     }
 

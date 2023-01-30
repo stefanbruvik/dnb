@@ -1,4 +1,6 @@
 @use "../../styles/spacing";
+@use "../../styles/transitions";
+@use "../../styles/breakpoints";
 
 .root {
   padding: spacing.$default;
@@ -8,8 +10,24 @@
 
 .buttons {
   display: flex;
+  transition: transitions.$default;
+  opacity: 0;
+  pointer-events: none;
+
+  @media (max-width: breakpoints.$small) {
+    display: none;
+    &.editmode {
+      display: flex;
+    }
+  }
+
   button {
     margin: 0 0 0 spacing.$default;
+  }
+
+  &.editmode {
+    opacity: 1;
+    pointer-events: initial;
   }
 }
 

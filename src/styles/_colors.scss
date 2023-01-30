@@ -1,1 +1,10 @@
 $blue: #3694ff;
+
+$lightblue: rgba(53, 148, 255, 0.08);
+
+$darkblue: darken(
+  $color: $blue,
+  $amount: 30%
+);
+
+$purple: #9750dd;

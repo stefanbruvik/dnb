@@ -1,0 +1,4 @@
+{
+  "editmode": "Click 'Add floor', and then click 'Add spot' to add parking spots to that floor. \n\n Change the type of the spot by clicking on it. \n\n When you're done, click 'Exit edit mode'.",
+  "instructions": "Click on a parking spot to start the parking, and click on the same spot again to end it. \n\n The earnings for that parking will then be calculated and added to the sum total. \n\n (For this demo, 1 second is 1 hour)"
+}

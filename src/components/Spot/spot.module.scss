@@ -1,19 +1,12 @@
 @use "sass:color";
 @use "../../styles/spacing";
-
-$bgcolor: #9750dd;
-$transition: all 250ms ease;
+@use "../../styles/colors";
+@use "../../styles/transitions";
 
 .root {
   display: flex;
   position: relative;
   max-height: 100px;
-  .clock {
-    position: absolute;
-    right: calc(50% - 22px);
-    top: 10px;
-    color: #17c964;
-  }
 }
 
 .card {
@@ -22,24 +15,29 @@ $transition: all 250ms ease;
   justify-content: center;
   align-items: center;
   border-radius: spacing.$half;
-  border: 1px solid #000;
+  border: 1px solid transparent;
   padding: spacing.$default;
   width: 30px;
   height: 50px;
   margin: spacing.$default;
   cursor: pointer;
-  background-color: $bgcolor;
+  background-color: colors.$purple;
   color: #fff;
-  transition: $transition;
+  transition: transitions.$default;
   user-select: none;
 
+  @keyframes linearGradientMove {
+    100% {
+      background-position: 4px 0, -4px 100%, 0 -4px, 100% 4px;
+    }
+  }
+
   &:hover {
-    background-color: color.adjust($bgcolor, $lightness: 10%);
     transform: scale(1.03);
   }
 
   &:active {
-    background-color: color.adjust($bgcolor, $lightness: 20%, $alpha: -0.4);
+    background-color: color.adjust(colors.$purple, $lightness: 20%, $alpha: -0.4);
     transform: scale(0.97);
   }
 
@@ -47,30 +45,36 @@ $transition: all 250ms ease;
     font-family: "Exo 2";
     font-size: 3rem;
   }
-}
+  &.occupied {
+    color: #fff;
 
-.compact {
-  width: 30px;
-}
+    &:not(.editmode) {
+      background: linear-gradient(90deg, #333 50%, transparent 0) repeat-x,
+        linear-gradient(90deg, #333 50%, transparent 0) repeat-x,
+        linear-gradient(0deg, #333 50%, transparent 0) repeat-y, linear-gradient(0deg, #333 50%, transparent 0) repeat-y;
+      background-size: 4px 1px, 4px 1px, 1px 4px, 1px 4px;
+      background-position: 0 0, 0 100%, 0 0, 100% 0;
+      animation: linearGradientMove 0.7s infinite linear;
+      background-color: color.adjust(colors.$purple, $lightness: 20%);
+    }
+  }
+  &.compact {
+    width: 30px;
+  }
 
-.large {
-  width: 40px;
-  height: 60px;
-}
+  &.large {
+    width: 40px;
+  }
 
-.handicapped {
-  width: 40px;
-  height: 40px;
-}
+  &.handicapped {
+    width: 40px;
+    height: 40px;
+  }
 
-.motorcycle {
-  width: 20px;
-  height: 30px;
-}
-
-.occupied {
-  color: #fff;
-  opacity: 0.5;
+  &.motorcycle {
+    width: 20px;
+    height: 30px;
+  }
 }
 
 .spot {
